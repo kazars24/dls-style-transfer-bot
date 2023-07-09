@@ -10,4 +10,4 @@ RUN mkdir images/source
 COPY utils/loss_and_loaders.py utils/loss_and_loaders.py
 COPY utils/model.py utils/model.py
 COPY tg_bot.py tg_bot.py
-ENTRYPOINT ["python", "tg_bot.py"]
+ENTRYPOINT ["python", "app.py"]
