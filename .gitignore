@@ -2,3 +2,4 @@
 .DS_Store
 utils/__pycache__/*
 utils/.DS_Store
+.env

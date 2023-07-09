@@ -1,4 +1,5 @@
 import logging
+import os
 
 from aiogram import Bot, Dispatcher,  executor, types
 
@@ -9,7 +10,8 @@ from utils.model import NeuralStyleTransfer
 logging.basicConfig(level=logging.INFO)
 
 # initialize bot
-bot = Bot(token='6365644640:AAFODi5jBkVdZ3c79TEEs4CLAaNvbTpKgUU')
+TG_BOT_TOKEN = os.environ.get('TG_BOT_TOKEN')
+bot = Bot(token=TG_BOT_TOKEN)
 dp = Dispatcher(bot)
 
 img_type = ['content_image', 'style_image']
