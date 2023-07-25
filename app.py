@@ -21,44 +21,43 @@ img_idx = 0
 # start message
 @dp.message_handler(commands=['start'])
 async def send_welcome(message: types.Message):
-    await bot.send_message(message.chat.id, 'Привет, {0.first_name}!\n'
-                                            'Я помогу перенести стиль с одной фотографии на другую 😎'
+    await bot.send_message(message.chat.id, 'Hi, {0.first_name}!\n'
+                                            'I will help you transfer the style from one photo to another 😎'
                                             ''.format(message.from_user),
                            parse_mode='html')
 
     # keyboard
     markup_general = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    button3_general = types.KeyboardButton('Перенести стиль')
+    button3_general = types.KeyboardButton('Transfer Style')
 
     markup_general.add(button3_general)
 
-    await bot.send_message(message.chat.id, 'Нужна помощь? ➡️ /help')
-    await bot.send_message(message.chat.id, 'Давай начнем)',
+    await bot.send_message(message.chat.id, 'Need help? ➡️ /help')
+    await bot.send_message(message.chat.id, "Let's get started)",
                            parse_mode='html', reply_markup=markup_general)
 
 
 # help
 @dp.message_handler(commands=['help'])
 async def help_message(message: types.Message):
-    await bot.send_message(message.chat.id, 'Я - бот, который может перенести стиль с одной '
-                                            'фотографии на другую. '
-                                            'Для этого:\n' 
-                                            '1. Нажни на кнопку "Перенести стиль".\n'
-                                            '2. Пришли фото, которое нужно преобразовать.\n'
-                                            '3. Пришли фото, стиль которой нужно скопировать.\n')
+    await bot.send_message(message.chat.id, 'I am a bot that can transfer style from one photo to another. '
+                                            'For this:\n' 
+                                            '1. Click on the "Transfer Style" button.\n'
+                                            '2. Send a photo that needs to be converted.\n'
+                                            '3. Send a photo, the style of which needs to be copied.\n')
 
 
 # chat
 @dp.message_handler(content_types=['text'])
 async def chat(message: types.Message):
     if message.chat.type == 'private':
-        if message.text == 'Перенести стиль':
+        if message.text == 'Transfer Style':
             await bot.send_message(message.chat.id,
-                                   'Пожалуйста, отправь мне одним сообщением фотографии в таком порядке:\n'
-                                   '1. фото, которое нужно обработать,\n'
-                                   '2. фото, стиль которой мы будем повторять.')
+                                   'Please send me the photos in this order in one message:\n'
+                                   '1. photo to be processed,\n'
+                                   '2. photo, the style of which we will repeat.')
         else:
-            await bot.send_message(message.chat.id, 'К сожалению, я не понял твою команду(')
+            await bot.send_message(message.chat.id, "Unfortunately, I didn't understand your command(")
 
 
 # save photo
@@ -70,13 +69,13 @@ async def photo_handler(message: types.Message):
     img_idx += 1
     name = img_type[img_idx % 2]
     await photo.download(f'./images/source/{name}.jpg')
-    await bot.send_message(message.chat.id, 'Фото успешно загружено.')
+    await bot.send_message(message.chat.id, 'Photo uploaded successfully.')
 
     style_reply_markup = types.InlineKeyboardMarkup(row_width=2, one_time_keyboard=True)
-    style_reply_button1 = types.InlineKeyboardButton('Продолжить', callback_data='continue')
+    style_reply_button1 = types.InlineKeyboardButton('Continue', callback_data='continue')
     style_reply_markup.add(style_reply_button1)
 
-    await bot.send_message(message.chat.id, 'Нажмите "Продолжить"', reply_markup=style_reply_markup)
+    await bot.send_message(message.chat.id, 'Click "Continue"', reply_markup=style_reply_markup)
 
 
 
@@ -94,7 +93,7 @@ async def launch_nst(message):
 
     nst = NeuralStyleTransfer()
 
-    await bot.send_message(message.chat.id, 'Начинаем обработку фотографии...')
+    await bot.send_message(message.chat.id, 'We begin processing the photo...')
 
     content_img = image_loader(content_image_name)
     style_img = image_loader(style_image_name)
@@ -103,13 +102,13 @@ async def launch_nst(message):
     output = nst.run_style_transfer(content_img, style_img, input_img)
     save_image(output, 'images/results/result_img.jpg')
 
-    await bot.send_message(message.chat.id, 'Готово!')
+    await bot.send_message(message.chat.id, 'Done!')
 
     result = open('images/results/result_img.jpg', 'rb')
 
     await bot.send_photo(message.chat.id, result)
 
-    await bot.send_message(message.chat.id, 'Чтобы попробовать ещё раз, просто отправь мне новое фото.')
+    await bot.send_message(message.chat.id, 'To try again, just send me a new pics.')
 
 
 # launch long polling
