@@ -1,5 +1,6 @@
-# Инструкция по запуску сервиса
-## Шаг 1
+# Telegram bot with style transfer
+## Инструкция по запуску сервиса
+### Шаг 1
 Склонируйте репозиторий командой:
 ```
 git clone https://github.com/kazars24/dls-style-transfer-bot.git
@@ -8,17 +9,17 @@ git clone https://github.com/kazars24/dls-style-transfer-bot.git
 ```
 cd dls-style-transfer-bot
 ```
-## Шаг 2
+### Шаг 2
 Для успешного использования сервиса вам необходимо установить себе на компьютер [Docker](https://www.docker.com/).
 После чего выполнить следующую команду:
 ```
 docker build -t style_transfer_bot .
 ```
-## Шаг 3
+### Шаг 3
 И наконец, для запуска приложения нужно выполнить команду:
 ```
 docker run style_transfer_bot
 ```
 
-## Шаг 4
+### Шаг 4
 Перейдя в диалог с ботом @kazars24_style_transfer_bot, следуйте инструкциям.
