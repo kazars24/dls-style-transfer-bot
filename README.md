@@ -23,3 +23,5 @@ docker run style_transfer_bot
 
 ### Step 4
 After entering the dialog with the bot @kazars24_style_transfer_bot, follow the instructions.
+
+![QR code](images/qr_code.jpg)
